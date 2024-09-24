@@ -73,10 +73,10 @@ services:
 networks:
   internal:
     name: 'internal'
-    external: false
+    internal: true
   web:
     name: 'web'
-    external: true
+    internal: false
 
 volumes:
   LetsEncrypt:
