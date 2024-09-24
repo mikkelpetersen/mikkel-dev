@@ -33,8 +33,11 @@ services:
       - '--certificatesresolvers.default.acme.email=${TRAEFIK_ACME_EMAIL}'
       - '--certificatesresolvers.default.acme.storage=/LetsEncrypt/acme.json'
     labels:
+      - 'traefik.enable=true'
+      # Router
       - 'traefik.http.routers.dashboard.rule=Host(`traefik.mikkel.dev`)'
       - 'traefik.http.routers.dashboard.service=api@internal'
+      # Basic Auth (Middleware)
       - 'traefik.http.routers.dashboard.middlewares=auth'
       - 'traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_BASIC_AUTH_USER}:{SHA}${TRAEFIK_BASIC_AUTH_PASSWORD}'
     depends_on:
