@@ -25,10 +25,12 @@ services:
       - '--api.insecure=false'
       # Entrypoints
       - '--entryPoints.websecure.address=:443'
+      - '--entrypoints.websecure.asDefault=true'
+      - '--entrypoints.websecure.http.tls.certresolver=default'
       - '--entrypoints.web.address=:80'
       - '--entrypoints.web.http.redirections.entrypoint.to=websecure'
       - '--entrypoints.web.http.redirections.entrypoint.scheme=https'
-      # Certificates
+      # ACME
       - '--certificatesresolvers.default.acme.tlschallenge=true'
       - '--certificatesresolvers.default.acme.email=${TRAEFIK_ACME_EMAIL}'
       - '--certificatesresolvers.default.acme.storage=/LetsEncrypt/acme.json'
@@ -85,3 +87,4 @@ networks:
 
 volumes:
   LetsEncrypt:
+    name: 'LetsEncrypt'
